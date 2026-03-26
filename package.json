@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "format": "prettier --write .",
     "check-format": "prettier --check .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "openapi:generate": "openapi-ts"
   },
   "dependencies": {
     "antd": "^6.3.2",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@hey-api/openapi-ts": "^0.94.5",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
