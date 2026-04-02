@@ -33,3 +33,10 @@ npm run format
 ```
 npm run prepare
 ```
+
+## Генерация api клиента
+
+Для генерации файлов нужно иметь openapi.yaml спецификацию в корне проекта (либо указать до нее путь в openapi-ts.config.js)
+```
+npm run openapi:generate
+```
