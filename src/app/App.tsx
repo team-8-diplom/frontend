@@ -1,11 +1,12 @@
 import { AppRouter } from '@/app/providers/router/AppRouter.tsx';
-import { HeroUIProvider } from '@heroui/react';
+import { HeroUIProvider, ToastProvider } from '@heroui/react';
 import { AuthProvider } from '@/app/providers/auth/AuthProvider.tsx';
-import '@/shared/api/client.config';
+import '@/shared/auth/client.config.ts';
 
 const App = () => {
   return (
     <HeroUIProvider>
+      <ToastProvider placement="bottom-right" />
       <AuthProvider>
         <AppRouter />
       </AuthProvider>

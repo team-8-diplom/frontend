@@ -1,4 +1,4 @@
-import { Button, Input, Tab, Tabs } from '@heroui/react';
+import { addToast, Button, Input, Tab, Tabs } from '@heroui/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { type SubmitHandler, useForm } from 'react-hook-form';
@@ -32,23 +32,26 @@ export const RegisterForm = () => {
   } = useForm<FormFields>({ resolver: zodResolver(registerSchema) });
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
-    console.log(selectedRole, data);
-    try {
-      // TODO добавить поле name в спецификацию swagger
-      const response = await postAuthRegister({
-        body: {
-          email: data.email,
-          password: data.password,
-          role: selectedRole,
-        },
-      });
+    // TODO добавить поле name в спецификацию swagger
+    const response = await postAuthRegister({
+      body: {
+        email: data.email,
+        password: data.password,
+        role: selectedRole,
+      },
+    });
 
-      if (response.data?.access_token) {
-        login(response.data.access_token);
-        navigate('/themes');
-      }
-    } catch (err) {
-      console.error(err);
+    if (response.data?.access_token) {
+      login(response.data.access_token);
+      navigate('/themes');
+    }
+
+    if (response.error) {
+      addToast({
+        title: 'Ошибка регистрации',
+        description: 'Что-то пошло не так',
+        color: 'danger',
+      });
     }
   };
 

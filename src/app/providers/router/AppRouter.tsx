@@ -24,25 +24,15 @@ export const AppRouter = () => {
 
         {/* всё остальное - авторизованные */}
         <Route element={<ProtectedRoute />}>
-          {/* студент */}
           <Route element={<RoleRoute allowedRoles={['student']} />}>
-            <Route path="/" element={<ThemesListPage />} />
-            <Route path="/themes" element={<ThemesListPage />} />
-            <Route path="/themes/:id" element={<ThemeDetailPage />} />
-
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/propose" element={<ProposeTopicPage />} />
-            <Route path="/my-themes" element={<MyThemesPage />} />
-            <Route path="/my-applications" element={<MyApplicationsPage />} />
           </Route>
 
-          {/* преподаватель */}
-          <Route element={<RoleRoute allowedRoles={['teacher']} />}>
+          <Route element={<RoleRoute allowedRoles={['teacher', 'student']} />}>
             <Route path="/" element={<ThemesListPage />} />
             <Route path="/themes" element={<ThemesListPage />} />
             <Route path="/themes/:id" element={<ThemeDetailPage />} />
-
             <Route path="/my-themes" element={<MyThemesPage />} />
             <Route path="/propose" element={<ProposeTopicPage />} />
             <Route path="/my-applications" element={<MyApplicationsPage />} />

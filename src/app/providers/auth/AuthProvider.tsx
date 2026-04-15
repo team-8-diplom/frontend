@@ -1,10 +1,11 @@
 import { type ReactNode, useMemo, useState } from 'react';
 import { isTokenValid } from '@/shared/util/tokenValidator.ts';
 import { AuthContext } from './AuthContext';
+import { tokenStore } from '@/shared/auth/tokenStore.ts';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(() => {
-    const storedToken = localStorage.getItem('access_token');
+    const storedToken = tokenStore.getToken();
     if (storedToken && isTokenValid(storedToken)) {
       return storedToken;
     }
@@ -15,13 +16,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = (token: string) => {
     setToken(token);
-    localStorage.setItem('access_token', token);
+    tokenStore.setToken(token);
   };
 
   const logout = () => {
     setToken(null);
-    localStorage.removeItem('access_token');
+    tokenStore.clearToken();
   };
 
-  return <AuthContext.Provider value={{ token, isAuthenticated, login, logout }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ isAuthenticated, login, logout }}>{children}</AuthContext.Provider>;
 };

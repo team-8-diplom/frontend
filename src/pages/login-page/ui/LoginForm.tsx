@@ -1,4 +1,4 @@
-import { Button, Input } from '@heroui/react';
+import { addToast, Button, Input } from '@heroui/react';
 import { useNavigate } from 'react-router-dom';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -23,22 +23,24 @@ export const LoginForm = () => {
   } = useForm<FormFields>({ resolver: zodResolver(loginSchema) });
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
-    console.log(data);
-    try {
-      const response = await postAuthLogin({
-        // TODO поменять username на email в спецификации swagger
-        body: {
-          username: data.email,
-          password: data.password,
-        },
-      });
+    const response = await postAuthLogin({
+      body: {
+        email: data.email,
+        password: data.password,
+      },
+    });
 
-      if (response.data?.access_token) {
-        login(response.data.access_token);
-        navigate('/themes');
-      }
-    } catch (err) {
-      console.error(err);
+    if (response.data?.access_token) {
+      login(response.data.access_token);
+      navigate('/themes');
+    }
+
+    if (response.error) {
+      addToast({
+        title: 'Ошибка входа',
+        description: 'Что-то пошло не так',
+        color: 'danger',
+      });
     }
   };
 
