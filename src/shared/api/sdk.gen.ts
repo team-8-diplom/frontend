@@ -115,6 +115,7 @@ export const postAuthRegister = <ThrowOnError extends boolean = false>(
   options: Options<PostAuthRegisterData, ThrowOnError>
 ) =>
   (options.client ?? client).post<PostAuthRegisterResponses, PostAuthRegisterErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/auth/register',
     ...options,
@@ -134,6 +135,7 @@ export const postAuthLogin = <ThrowOnError extends boolean = false>(
 ) =>
   (options.client ?? client).post<PostAuthLoginResponses, PostAuthLoginErrors, ThrowOnError>({
     ...urlSearchParamsBodySerializer,
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/auth/login',
     ...options,
@@ -148,6 +150,7 @@ export const postAuthLogin = <ThrowOnError extends boolean = false>(
  */
 export const getUsersMe = <ThrowOnError extends boolean = false>(options?: Options<GetUsersMeData, ThrowOnError>) =>
   (options?.client ?? client).get<GetUsersMeResponses, GetUsersMeErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/users/me',
     ...options,
@@ -158,6 +161,7 @@ export const getUsersMe = <ThrowOnError extends boolean = false>(options?: Optio
  */
 export const patchUsersMe = <ThrowOnError extends boolean = false>(options: Options<PatchUsersMeData, ThrowOnError>) =>
   (options.client ?? client).patch<PatchUsersMeResponses, PatchUsersMeErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/users/me',
     ...options,
@@ -174,6 +178,7 @@ export const deleteUsersByUserId = <ThrowOnError extends boolean = false>(
   options: Options<DeleteUsersByUserIdData, ThrowOnError>
 ) =>
   (options.client ?? client).delete<DeleteUsersByUserIdResponses, DeleteUsersByUserIdErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/users/{user_id}',
     ...options,
@@ -186,6 +191,7 @@ export const getUsersByUserId = <ThrowOnError extends boolean = false>(
   options: Options<GetUsersByUserIdData, ThrowOnError>
 ) =>
   (options.client ?? client).get<GetUsersByUserIdResponses, GetUsersByUserIdErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/users/{user_id}',
     ...options,
@@ -198,6 +204,7 @@ export const patchUsersByUserId = <ThrowOnError extends boolean = false>(
   options: Options<PatchUsersByUserIdData, ThrowOnError>
 ) =>
   (options.client ?? client).patch<PatchUsersByUserIdResponses, PatchUsersByUserIdErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/users/{user_id}',
     ...options,
@@ -214,6 +221,7 @@ export const patchUsersByUserIdRole = <ThrowOnError extends boolean = false>(
   options: Options<PatchUsersByUserIdRoleData, ThrowOnError>
 ) =>
   (options.client ?? client).patch<PatchUsersByUserIdRoleResponses, PatchUsersByUserIdRoleErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/users/{user_id}/role',
     ...options,
@@ -230,6 +238,7 @@ export const getDepartments = <ThrowOnError extends boolean = false>(
   options?: Options<GetDepartmentsData, ThrowOnError>
 ) =>
   (options?.client ?? client).get<GetDepartmentsResponses, GetDepartmentsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/departments',
     ...options,
@@ -240,6 +249,7 @@ export const getDepartments = <ThrowOnError extends boolean = false>(
  */
 export const getTopics = <ThrowOnError extends boolean = false>(options?: Options<GetTopicsData, ThrowOnError>) =>
   (options?.client ?? client).get<GetTopicsResponses, GetTopicsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/topics',
     ...options,
@@ -250,6 +260,7 @@ export const getTopics = <ThrowOnError extends boolean = false>(options?: Option
  */
 export const postTopics = <ThrowOnError extends boolean = false>(options: Options<PostTopicsData, ThrowOnError>) =>
   (options.client ?? client).post<PostTopicsResponses, PostTopicsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/topics',
     ...options,
@@ -266,6 +277,7 @@ export const deleteTopicsByTopicId = <ThrowOnError extends boolean = false>(
   options: Options<DeleteTopicsByTopicIdData, ThrowOnError>
 ) =>
   (options.client ?? client).delete<DeleteTopicsByTopicIdResponses, DeleteTopicsByTopicIdErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/topics/{topic_id}',
     ...options,
@@ -278,6 +290,7 @@ export const getTopicsByTopicId = <ThrowOnError extends boolean = false>(
   options: Options<GetTopicsByTopicIdData, ThrowOnError>
 ) =>
   (options.client ?? client).get<GetTopicsByTopicIdResponses, GetTopicsByTopicIdErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/topics/{topic_id}',
     ...options,
@@ -290,6 +303,7 @@ export const patchTopicsByTopicId = <ThrowOnError extends boolean = false>(
   options: Options<PatchTopicsByTopicIdData, ThrowOnError>
 ) =>
   (options.client ?? client).patch<PatchTopicsByTopicIdResponses, PatchTopicsByTopicIdErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/topics/{topic_id}',
     ...options,
@@ -310,6 +324,7 @@ export const deleteTopicsByTopicIdFavorite = <ThrowOnError extends boolean = fal
     DeleteTopicsByTopicIdFavoriteErrors,
     ThrowOnError
   >({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/topics/{topic_id}/favorite',
     ...options,
@@ -326,6 +341,7 @@ export const postTopicsByTopicIdFavorite = <ThrowOnError extends boolean = false
     PostTopicsByTopicIdFavoriteErrors,
     ThrowOnError
   >({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/topics/{topic_id}/favorite',
     ...options,
@@ -336,6 +352,7 @@ export const postTopicsByTopicIdFavorite = <ThrowOnError extends boolean = false
  */
 export const getSkills = <ThrowOnError extends boolean = false>(options?: Options<GetSkillsData, ThrowOnError>) =>
   (options?.client ?? client).get<GetSkillsResponses, GetSkillsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/skills',
     ...options,
@@ -346,6 +363,7 @@ export const getSkills = <ThrowOnError extends boolean = false>(options?: Option
  */
 export const postSkills = <ThrowOnError extends boolean = false>(options?: Options<PostSkillsData, ThrowOnError>) =>
   (options?.client ?? client).post<PostSkillsResponses, PostSkillsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/skills',
     ...options,
@@ -362,6 +380,7 @@ export const deleteSkillsBySkillId = <ThrowOnError extends boolean = false>(
   options: Options<DeleteSkillsBySkillIdData, ThrowOnError>
 ) =>
   (options.client ?? client).delete<DeleteSkillsBySkillIdResponses, DeleteSkillsBySkillIdErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/skills/{skill_id}',
     ...options,
@@ -374,6 +393,7 @@ export const patchSkillsBySkillId = <ThrowOnError extends boolean = false>(
   options: Options<PatchSkillsBySkillIdData, ThrowOnError>
 ) =>
   (options.client ?? client).patch<PatchSkillsBySkillIdResponses, PatchSkillsBySkillIdErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/skills/{skill_id}',
     ...options,
@@ -390,6 +410,7 @@ export const getUsersMeSkills = <ThrowOnError extends boolean = false>(
   options?: Options<GetUsersMeSkillsData, ThrowOnError>
 ) =>
   (options?.client ?? client).get<GetUsersMeSkillsResponses, GetUsersMeSkillsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/users/me/skills',
     ...options,
@@ -402,6 +423,7 @@ export const postUsersMeSkills = <ThrowOnError extends boolean = false>(
   options?: Options<PostUsersMeSkillsData, ThrowOnError>
 ) =>
   (options?.client ?? client).post<PostUsersMeSkillsResponses, PostUsersMeSkillsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/users/me/skills',
     ...options,
@@ -418,6 +440,7 @@ export const postTopicsByTopicIdSkills = <ThrowOnError extends boolean = false>(
   options: Options<PostTopicsByTopicIdSkillsData, ThrowOnError>
 ) =>
   (options.client ?? client).post<PostTopicsByTopicIdSkillsResponses, PostTopicsByTopicIdSkillsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/topics/{topic_id}/skills',
     ...options,
@@ -434,6 +457,7 @@ export const getApplications = <ThrowOnError extends boolean = false>(
   options?: Options<GetApplicationsData, ThrowOnError>
 ) =>
   (options?.client ?? client).get<GetApplicationsResponses, GetApplicationsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/applications',
     ...options,
@@ -446,6 +470,7 @@ export const postApplications = <ThrowOnError extends boolean = false>(
   options: Options<PostApplicationsData, ThrowOnError>
 ) =>
   (options.client ?? client).post<PostApplicationsResponses, PostApplicationsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/applications',
     ...options,
@@ -464,6 +489,7 @@ export const deleteApplicationsByAppId = <ThrowOnError extends boolean = false>(
   options: Options<DeleteApplicationsByAppIdData, ThrowOnError>
 ) =>
   (options.client ?? client).delete<DeleteApplicationsByAppIdResponses, DeleteApplicationsByAppIdErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/applications/{app_id}',
     ...options,
@@ -476,6 +502,7 @@ export const getApplicationsByAppId = <ThrowOnError extends boolean = false>(
   options: Options<GetApplicationsByAppIdData, ThrowOnError>
 ) =>
   (options.client ?? client).get<GetApplicationsByAppIdResponses, GetApplicationsByAppIdErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/applications/{app_id}',
     ...options,
@@ -488,6 +515,7 @@ export const patchApplicationsByAppId = <ThrowOnError extends boolean = false>(
   options: Options<PatchApplicationsByAppIdData, ThrowOnError>
 ) =>
   (options.client ?? client).patch<PatchApplicationsByAppIdResponses, PatchApplicationsByAppIdErrors, ThrowOnError>({
+    responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/applications/{app_id}',
     ...options,

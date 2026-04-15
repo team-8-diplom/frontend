@@ -1,9 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom';
-
-// TODO: реализовать приватный роут
-const useAuth = () => {
-  return { isAuthenticated: true };
-};
+import { useAuth } from '@/app/providers/auth';
 
 export const ProtectedRoute = () => {
   const { isAuthenticated } = useAuth();

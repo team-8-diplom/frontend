@@ -14,10 +14,19 @@
     "openapi:generate": "openapi-ts"
   },
   "dependencies": {
-    "antd": "^6.3.2",
+    "@heroui/react": "^2.8.10",
+    "@hey-api/client-axios": "^0.9.1",
+    "@hookform/resolvers": "^5.2.2",
+    "@tailwindcss/vite": "^4.2.2",
+    "axios": "^1.15.0",
+    "framer-motion": "^12.38.0",
+    "jwt-decode": "^4.0.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router-dom": "^7.13.1"
+    "react-hook-form": "^7.72.1",
+    "react-router-dom": "^7.13.1",
+    "tailwindcss": "^4.2.2",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
