@@ -18,11 +18,16 @@ export const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* публичные */}
+        {/* Публичные (без авторизации) */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
-        {/* всё остальное - авторизованные */}
+        {/* Темы доступны всем */}
+        <Route path="/" element={<ThemesListPage />} />
+        <Route path="/themes" element={<ThemesListPage />} />
+        <Route path="/themes/:id" element={<ThemeDetailPage />} />
+
+        {/* Защищённые маршруты */}
         <Route element={<ProtectedRoute />}>
           <Route element={<RoleRoute allowedRoles={['student']} />}>
             <Route path="/favorites" element={<FavoritesPage />} />
@@ -30,9 +35,6 @@ export const AppRouter = () => {
           </Route>
 
           <Route element={<RoleRoute allowedRoles={['teacher', 'student']} />}>
-            <Route path="/" element={<ThemesListPage />} />
-            <Route path="/themes" element={<ThemesListPage />} />
-            <Route path="/themes/:id" element={<ThemeDetailPage />} />
             <Route path="/my-themes" element={<MyThemesPage />} />
             <Route path="/propose" element={<ProposeTopicPage />} />
             <Route path="/my-applications" element={<MyApplicationsPage />} />
