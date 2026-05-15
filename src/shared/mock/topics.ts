@@ -20,7 +20,7 @@ export const MOCK_TOPICS_ALL: MockTopic[] = [
     institute: 'ИКТ',
     teacher: 'Иванов Иван Иванович',
     email: 'ivanov@example.com',
-    skills: ['Стрессоустойчивость', 'C++', 'React', 'PostgreSQL'],
+    skills: ['Стрессоустойчивость', 'C++', 'React', 'PostgreSQL', 'TypeScript', 'Java', 'NodeJS'],
     author_type: 'teacher',
   },
   {

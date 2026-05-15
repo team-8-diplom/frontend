@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { Header } from '@/shared/ui/Header/Header';
 import { Button, Chip } from '@heroui/react';
 import { MOCK_TOPICS_ALL } from '@/shared/mock/topics';
+import { Header } from '@/widgets/header';
 
 const CURRENT_ROLE = 'student'; // заглушка
 
@@ -14,7 +14,7 @@ export const ThemeDetailPage = () => {
   if (!topic) {
     return (
       <div className="min-h-screen flex flex-col bg-white" style={{ fontFamily: 'Roboto, sans-serif' }}>
-        <Header title="Подробная информация о теме" />
+        <Header />
         <div className="flex-1 flex items-center justify-center">
           <p className="text-lg text-[#49454F] font-medium">Тема не найдена</p>
         </div>
@@ -26,7 +26,7 @@ export const ThemeDetailPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-white" style={{ fontFamily: 'Roboto, sans-serif' }}>
-      <Header title="Подробная информация о теме" />
+      <Header />
 
       <main className="flex-1 max-w-[1440px] mx-auto w-full px-4 lg:px-[73px] py-6">
         <div className="mb-6 space-y-4">
