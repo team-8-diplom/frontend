@@ -3,7 +3,7 @@ import type { InternalAxiosRequestConfig } from 'axios';
 import { tokenStore } from '@/shared/auth/tokenStore.ts';
 
 client.setConfig({
-  baseURL: import.meta.env.VITE_BASE_URL || 'http://localhost:8000',
+  baseURL: import.meta.env.VITE_BASE_URL || 'http://localhost:5173/api/v1',
 });
 
 client.instance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
