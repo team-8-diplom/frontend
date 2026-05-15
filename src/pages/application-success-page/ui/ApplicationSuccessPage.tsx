@@ -1,15 +1,14 @@
 import { Button } from '@heroui/react';
 import { useNavigate } from 'react-router-dom';
-import { Header } from '@/shared/ui/Header/Header';
-// import { Footer } from '@/shared/ui/Footer/Footer';
+
+import { Header } from '@/widgets/header';
 
 export const ApplicationSuccessPage = () => {
   const navigate = useNavigate();
 
   return (
     <div className="min-h-screen flex flex-col bg-white" style={{ fontFamily: 'Roboto, sans-serif' }}>
-      <Header title="Заявка отправлена" />
-
+      <Header />
       <main className="flex-1 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="pt-12">

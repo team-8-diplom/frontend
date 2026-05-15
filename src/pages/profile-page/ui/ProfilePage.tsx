@@ -1,5 +1,3 @@
-// src/pages/profile-page/ui/ProfilePage.tsx
-
 import {
   Avatar,
   Button,
@@ -17,11 +15,11 @@ import {
   SelectItem,
   Spinner,
 } from '@heroui/react';
-import { Header } from '@/shared/ui/Header/Header';
 import { useEffect, useState } from 'react';
 import { getSkills, type Skill } from '@/shared/api';
 import { addToast } from '@heroui/react';
-// import { Footer } from '@/shared/ui/Footer/Footer';
+
+import { Header } from '@/widgets/header';
 
 // Мок-навыки (на случай, если API не работает)
 const MOCK_SKILLS_FALLBACK: Skill[] = [
@@ -44,7 +42,7 @@ export const ProfilePage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isAddingSkill, setIsAddingSkill] = useState(false);
   const [profileData, setProfileData] = useState({
-    fullName: 'Иванов Иван Иванович',
+    fullName: 'Петров Иван Иванович',
     userEmail: 'ivan@example.com',
     studentIdNum: '12345',
     departmentId: 'dept_01',
@@ -65,7 +63,6 @@ export const ProfilePage = () => {
   const departmentId = profileData.departmentId;
   const position = profileData.position;
 
-  // Загрузка навыков из API
   useEffect(() => {
     const fetchSkills = async () => {
       try {
@@ -127,8 +124,7 @@ export const ProfilePage = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-white" style={{ fontFamily: 'Roboto, sans-serif' }}>
-      <Header title="Личный кабинет" />
-
+      <Header />
       <main className="flex-1 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="pt-12">
