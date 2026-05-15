@@ -1,14 +1,20 @@
 import { useState, useMemo } from 'react';
 import { Header } from '@/widgets/header';
 import { MOCK_TOPICS_ALL } from '@/shared/mock/topics';
-import { TopicSearchInput } from '@/features/theme-search/ui/TopicSearchInput.tsx';
-import { TopicCard } from '@/entities/theme/ui/TopicCard/TopicCard.tsx';
+import { TopicSearchInput } from '@/features/topic-search/ui/TopicSearchInput.tsx';
+import { TopicCard } from '@/entities/topic/ui/TopicCard/TopicCard.tsx';
 import { addToast } from '@heroui/react';
+import { TopicFilters } from '@/features/topic-filter/ui/TopicFilters.tsx';
+import { getMatchPercentage } from '@/features/match-skill/lib/getMatchPercentage.tsx';
+import { useProfile } from '@/app/providers/profile/ProfileContext.ts';
+import { Footer } from '@/widgets/footer';
 
 const CURRENT_ROLE = 'student'; // заглушка
 
 export const ThemesListPage = () => {
+  const { profile } = useProfile();
   const [search, setSearch] = useState('');
+  const [skillMatchFilter, setSkillMatchFilter] = useState<string>('all');
 
   const topicsForRole = useMemo(() => {
     if (CURRENT_ROLE === 'student') {
@@ -18,16 +24,37 @@ export const ThemesListPage = () => {
   }, []);
 
   const filteredTopics = useMemo(() => {
+    let result = topicsForRole;
     const query = search.trim().toLowerCase();
-    if (!query) return topicsForRole;
-    return topicsForRole.filter(
-      (t) =>
-        t.title.toLowerCase().includes(query) ||
-        t.description.toLowerCase().includes(query) ||
-        t.institute.toLowerCase().includes(query) ||
-        t.teacher.toLowerCase().includes(query)
-    );
-  }, [search, topicsForRole]);
+    if (query) {
+      result = result.filter(
+        (t) =>
+          t.title.toLowerCase().includes(query) ||
+          t.description.toLowerCase().includes(query) ||
+          t.institute.toLowerCase().includes(query) ||
+          t.teacher.toLowerCase().includes(query)
+      );
+    }
+
+    if (skillMatchFilter && skillMatchFilter !== 'all') {
+      const userSkills = profile?.skills ?? [];
+      result = result.filter((topic) => {
+        const percent = getMatchPercentage(topic.skills, userSkills);
+        switch (skillMatchFilter) {
+          case 'high':
+            return percent >= 80;
+          case 'medium':
+            return percent >= 50 && percent <= 79;
+          case 'low':
+            return percent < 50;
+          default:
+            return true;
+        }
+      });
+    }
+
+    return result;
+  }, [search, topicsForRole, skillMatchFilter, profile?.skills]);
 
   const handleApply = () => {
     addToast({
@@ -44,24 +71,19 @@ export const ThemesListPage = () => {
         <TopicSearchInput search={search} setSearch={setSearch} />
 
         <div className="flex justify-between">
-          <aside className="shrink-0 w-[280px] hidden sm:block">
-            <div className="w-full border border-black bg-[#F3EDF7] rounded-sm p-4">
-              <h2 className="text-black font-medium text-2xl leading-6 tracking-[0.15px]">Фильтры</h2>
-              <p className="mt-4 text-sm text-[#49454F]">Здесь будут фильтры</p>
-            </div>
-          </aside>
-
-          <div className="flex flex-col gap-2">
+          <TopicFilters selectedValue={skillMatchFilter} onValueChange={setSkillMatchFilter} />
+          <div className="flex flex-col gap-[28px]">
             {filteredTopics.length === 0 ? (
               <div className="text-center py-16 text-[#49454F] font-medium text-base">
                 По вашему запросу ничего не найдено
               </div>
             ) : (
-              filteredTopics.map((topic) => <TopicCard key={topic.id} topic={topic} onApply={handleApply} />)            
+              filteredTopics.map((topic) => <TopicCard key={topic.id} topic={topic} onApply={handleApply} />)
             )}
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

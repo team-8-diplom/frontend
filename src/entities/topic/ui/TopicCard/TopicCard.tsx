@@ -3,6 +3,7 @@ import { Button, Chip, Avatar, Progress } from '@heroui/react';
 import { useProfile } from '@/app/providers/profile/ProfileContext';
 import { StarIcon } from '@/shared/ui/icons/StarIcon.tsx';
 import { useNavigate } from 'react-router-dom';
+import { getMatchPercentage } from '@/features/match-skill/lib/getMatchPercentage.tsx';
 
 export interface Topic {
   id: string;
@@ -27,12 +28,7 @@ export const TopicCard = ({ topic, onFavoriteToggle, onApply, initialFavorite = 
   const [isFavorite, setIsFavorite] = useState(initialFavorite);
 
   const matchPercentage = useMemo(() => {
-    if (!topic.skills.length) return 0;
-    const userSkills = profile?.skills ?? [];
-    const userSkillsLower = userSkills.map((s) => s.toLowerCase());
-    const topicSkillsLower = topic.skills.map((s) => s.toLowerCase());
-    const common = topicSkillsLower.filter((skill) => userSkillsLower.includes(skill)).length;
-    return Math.round((common / topic.skills.length) * 100);
+    return getMatchPercentage(topic.skills, profile?.skills);
   }, [profile?.skills, topic.skills]);
 
   const handleFavoriteClick = () => {

@@ -19,7 +19,7 @@ export const getUsersMe = async (): Promise<GetUsersMeResponse> => {
     data: {
       first_name: 'Иван',
       last_name: 'Петров',
-      skills: ['Python', 'scikit-learn', 'Pandas', 'SQL'],
+      skills: ['Python', 'scikit-learn', 'Pandas', 'SQL', 'Flutter', 'Dart', 'PostgreSQL', 'Индексирование'],
     },
   };
 };
