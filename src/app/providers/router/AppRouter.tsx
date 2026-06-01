@@ -1,5 +1,8 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
+import { ProtectedRoute } from './ProtectedRoute';
+import { RoleRoute } from './RoleRoute';
+
 import { LoginPage } from '@/pages/login-page/ui/LoginPage';
 import { RegisterPage } from '@/pages/register-page/ui/RegisterPage';
 
@@ -10,24 +13,33 @@ import { FavoritesPage } from '@/pages/favorites-page/ui/FavoritesPage';
 import { ProfilePage } from '@/pages/profile-page/ui/ProfilePage';
 import { ProposeTopicPage } from '@/pages/propose/ui/ProposeTopicPage';
 import { MyApplicationsPage } from '@/pages/my-applications-page/ui/MyApplicationsPage';
-import { ApplicationSuccessPage } from '@/pages/application-success-page/ui/ApplicationSuccessPage';
 
 export const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Все страницы открыты для просмотра (временно) */}
+        {/* Публичные (без авторизации) */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+
+        {/* Темы доступны всем */}
         <Route path="/" element={<ThemesListPage />} />
         <Route path="/themes" element={<ThemesListPage />} />
         <Route path="/themes/:id" element={<ThemeDetailPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/application-success" element={<ApplicationSuccessPage />} />
-        <Route path="/favorites" element={<FavoritesPage />} />
-        <Route path="/my-themes" element={<MyThemesPage />} />
-        <Route path="/propose" element={<ProposeTopicPage />} />
-        <Route path="/my-applications" element={<MyApplicationsPage />} />
+
+        {/* Защищённые маршруты */}
+        <Route element={<ProtectedRoute />}>
+          <Route element={<RoleRoute allowedRoles={['student']} />}>
+            <Route path="/favorites" element={<FavoritesPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+          </Route>
+
+          <Route element={<RoleRoute allowedRoles={['teacher', 'student']} />}>
+            <Route path="/my-themes" element={<MyThemesPage />} />
+            <Route path="/propose" element={<ProposeTopicPage />} />
+            <Route path="/my-applications" element={<MyApplicationsPage />} />
+          </Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   );

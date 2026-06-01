@@ -43,31 +43,33 @@ export const ApplicationCard = ({ application }: ApplicationCardProps) => {
 
   return (
     <div
-      className={`relative w-[874px] bg-white rounded-xl border flex flex-col p-7 ${status.bgColor}`}
+      className={`relative w-full max-w-[874px] mx-auto bg-white rounded-xl border flex flex-col p-4 sm:p-7 ${status.bgColor}`}
       style={{ borderColor: status.borderColor }}
     >
-      <div className="absolute top-7 right-7">
-        <Chip variant="flat" color={status.badgeColor} size="md" radius="full">
+      <div className="absolute top-4 right-4 sm:top-7 sm:right-7">
+        <Chip variant="flat" color={status.badgeColor} size="sm" radius="full">
           {status.label}
         </Chip>
       </div>
 
-      <div className="flex flex-row flex-grow gap-x-6">
-        <div className="flex-grow flex flex-col gap-[14px]">
+      <div className="flex flex-row flex-grow gap-x-4 sm:gap-x-6">
+        <div className="flex-grow flex flex-col gap-2 sm:gap-[14px]">
           <div className="flex flex-col cursor-pointer" onClick={() => navigate(`/themes/${application.id}`)}>
-            <h1 className="text-[30px] font-bold leading-tight line-clamp-2 hover:text-gray-500">
+            <h1 className="text-xl sm:text-[30px] font-bold leading-tight line-clamp-2 hover:text-gray-500">
               {application.title}
             </h1>
           </div>
 
           <div className="overflow-hidden flex items-center">
-            <p className="text-[18px] text-gray-700 line-clamp-2">{application.description}</p>
+            <p className="text-sm sm:text-[18px] text-gray-700 line-clamp-2">
+              {application.description}
+            </p>
           </div>
 
-          <div className="flex items-center gap-3 mt-2">
+          <div className="flex items-center gap-2 sm:gap-3 mt-1 sm:mt-2">
             <Avatar name={application.teacher} size="sm" />
             <div>
-              <p className="text-sm font-bold">{application.teacher}</p>
+              <p className="text-xs sm:text-sm font-bold">{application.teacher}</p>
               <p className="text-xs text-gray-500">{application.institute}</p>
             </div>
           </div>
@@ -77,7 +79,7 @@ export const ApplicationCard = ({ application }: ApplicationCardProps) => {
       <Button
         onPress={() => navigate(`/themes/${application.id}`)}
         color="primary"
-        className="w-full mt-7"
+        className="w-full mt-4 sm:mt-7"
         size="lg"
         variant="solid"
         radius="full"

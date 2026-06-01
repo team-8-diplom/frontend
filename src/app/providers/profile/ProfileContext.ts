@@ -17,6 +17,6 @@ export const ProfileContext = createContext<ProfileContextType | undefined>(unde
 
 export const useProfile = (): ProfileContextType => {
   const context = useContext(ProfileContext);
-  if (!context) throw new Error('useAuth must be used within AuthProvider');
+  if (!context) throw new Error('useProfile must be used within ProfileProvider');
   return context;
 };
