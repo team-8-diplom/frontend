@@ -21,7 +21,6 @@ import { addToast } from '@heroui/react';
 
 import { Header } from '@/widgets/header';
 
-// Мок-навыки (на случай, если API не работает)
 const MOCK_SKILLS_FALLBACK: Skill[] = [
   { id: '1', name: 'JavaScript', category: 'Programming', code: 'JS' },
   { id: '2', name: 'React', category: 'Frontend', code: 'REACT' },
@@ -30,7 +29,6 @@ const MOCK_SKILLS_FALLBACK: Skill[] = [
   { id: '5', name: 'Python', category: 'Programming', code: 'PY' },
 ];
 
-// Мок-данные для кафедр
 const MOCK_DEPARTMENTS = [
   { id: 'dept_01', name: 'Институт информационных технологий' },
   { id: 'dept_02', name: 'Институт экономики' },
@@ -38,7 +36,7 @@ const MOCK_DEPARTMENTS = [
 ];
 
 export const ProfilePage = () => {
-  // Состояния для профиля (мок)
+
   const [isEditing, setIsEditing] = useState(false);
   const [isAddingSkill, setIsAddingSkill] = useState(false);
   const [profileData, setProfileData] = useState({
@@ -50,7 +48,6 @@ export const ProfilePage = () => {
     role: 'student',
   });
 
-  // Состояния для навыков
   const [allSkills, setAllSkills] = useState<Skill[]>([]);
   const [userSkills, setUserSkills] = useState<Skill[]>([]);
   const [isLoadingSkills, setIsLoadingSkills] = useState(true);
@@ -72,12 +69,13 @@ export const ProfilePage = () => {
         }
         setAllSkills(response.data || []);
 
-        // что потом переделпть: здесь потом загрузим навыки пользователя через getUsersMeSkills
+        // TODO: здесь потом загрузим навыки пользователя через getUsersMeSkills
         // Пока используем моки для userSkills
         setUserSkills(MOCK_SKILLS_FALLBACK.slice(0, 3));
       } catch (error) {
         console.error('Ошибка загрузки навыков:', error);
-        // Если API не работает, используем моки
+        
+        // HACK: Если API не работает, используем моки
         setAllSkills(MOCK_SKILLS_FALLBACK);
         setUserSkills(MOCK_SKILLS_FALLBACK.slice(0, 3));
         addToast({
@@ -93,32 +91,27 @@ export const ProfilePage = () => {
     fetchSkills();
   }, []);
 
-  // Добавление навыка пользователю
   const handleAddSkill = () => {
     if (!selectedSkillId) return;
 
     const skillToAdd = allSkills.find((s) => s.id === selectedSkillId);
     if (skillToAdd && !userSkills.some((s) => s.id === skillToAdd.id)) {
       setUserSkills([...userSkills, skillToAdd]);
-      // что потом переделaть: вызвать API postUsersMeSkills
-      console.log('Добавлен навык:', skillToAdd.name);
+      // TODO: вызвать API postUsersMeSkills
     }
 
     setSelectedSkillId('');
     setIsAddingSkill(false);
   };
 
-  // Удаление навыка
-  const handleRemoveSkill = (skillId: string) => {
-    setUserSkills(userSkills.filter((s) => s.id !== skillId));
-    // что потом переделать: вызвать API deleteUsersMeSkills
-    console.log('Удален навык:', skillId);
-  };
+const handleRemoveSkill = (skillId: string | undefined) => {
+  if (!skillId) return; 
+  setUserSkills(userSkills.filter((s) => s.id !== skillId));
+  // TODO: вызвать API deleteUsersMeSkills
+};
 
-  // Сохранение профиля
   const handleSave = () => {
-    // что потом переделпть: Здесь будет вызов API patchUsersMe
-    console.log('Сохраненные данные:', profileData);
+   // TODO: вызвать API patchUsersMe
     setIsEditing(false);
   };
 
@@ -130,7 +123,6 @@ export const ProfilePage = () => {
           <div className="pt-12">
             <h1 className="text-6xl font-bold leading-none mb-12 text-gray-900">Личный кабинет</h1>
 
-            {/* Основная карточка профиля */}
             <Card
               className="mb-8"
               classNames={{
@@ -200,7 +192,6 @@ export const ProfilePage = () => {
               </CardBody>
             </Card>
 
-            {/* Блок навыков */}
             <Card
               className="mb-0"
               classNames={{
@@ -261,7 +252,6 @@ export const ProfilePage = () => {
         </div>
       </main>
 
-      {/* Модалка редактирования профиля */}
       <Modal isOpen={isEditing} onClose={() => setIsEditing(false)} size="2xl" backdrop="blur">
         <ModalContent>
           {(onClose) => (
@@ -295,7 +285,7 @@ export const ProfilePage = () => {
                   )}
                   <Select
                     label="Кафедра"
-                    selectedKeys={[profileData.departmentId]}
+                    selectedKeys={profileData.departmentId ? new Set([profileData.departmentId]) : new Set()}
                     onChange={(e) => setProfileData({ ...profileData, departmentId: e.target.value })}
                   >
                     {MOCK_DEPARTMENTS.map((dept) => (
@@ -317,7 +307,6 @@ export const ProfilePage = () => {
         </ModalContent>
       </Modal>
 
-      {/* Модалка добавления навыка */}
       <Modal isOpen={isAddingSkill} onClose={() => setIsAddingSkill(false)} size="lg" backdrop="blur">
         <ModalContent>
           {(onClose) => (
@@ -327,7 +316,7 @@ export const ProfilePage = () => {
                 <Select
                   label="Выберите навык"
                   placeholder="Начните вводить название навыка"
-                  selectedKeys={selectedSkillId ? [selectedSkillId] : []}
+                  selectedKeys={selectedSkillId ? new Set([selectedSkillId]) : new Set()}
                   onChange={(e) => setSelectedSkillId(e.target.value)}
                   isRequired
                 >
