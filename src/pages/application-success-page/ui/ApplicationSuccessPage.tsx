@@ -2,6 +2,7 @@ import { Button } from '@heroui/react';
 import { useNavigate } from 'react-router-dom';
 
 import { Header } from '@/widgets/header';
+import { Footer } from '@/widgets/footer';
 
 export const ApplicationSuccessPage = () => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ export const ApplicationSuccessPage = () => {
         </div>
       </main>
 
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };

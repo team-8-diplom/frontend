@@ -1,9 +1,10 @@
 import { useState, useMemo } from 'react';
-import { Button, Chip, Avatar, Progress } from '@heroui/react';
+import { Button, Chip, Avatar } from '@heroui/react';
 import { useProfile } from '@/app/providers/profile/ProfileContext';
 import { StarIcon } from '@/shared/ui/icons/StarIcon.tsx';
 import { useNavigate } from 'react-router-dom';
 import { getMatchPercentage } from '@/features/match-skill/lib/getMatchPercentage.tsx';
+import { MatchBar } from '@/features/match-skill/ui/MatchBar/MatchBar.tsx';
 
 export interface Topic {
   id: string;
@@ -71,10 +72,7 @@ export const TopicCard = ({ topic, onFavoriteToggle, onApply, initialFavorite = 
             <p className="text-[18px] text-gray-700 line-clamp-3">{topic.description}</p>
           </div>
 
-          <div className="h-[44px]">
-            <p className="text-gray-600 mb-1">Совпадение ваших навыков: {matchPercentage}%</p>
-            <Progress value={matchPercentage} className="max-w-md" color="primary" />
-          </div>
+          <MatchBar matchPercentage={matchPercentage} />
 
           <div className="h-[52px] flex items-center gap-3">
             <Avatar name={topic.teacher} size="sm" />
