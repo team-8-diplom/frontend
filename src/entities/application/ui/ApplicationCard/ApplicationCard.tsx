@@ -61,9 +61,7 @@ export const ApplicationCard = ({ application }: ApplicationCardProps) => {
           </div>
 
           <div className="overflow-hidden flex items-center">
-            <p className="text-sm sm:text-[18px] text-gray-700 line-clamp-2">
-              {application.description}
-            </p>
+            <p className="text-sm sm:text-[18px] text-gray-700 line-clamp-2">{application.description}</p>
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3 mt-1 sm:mt-2">
