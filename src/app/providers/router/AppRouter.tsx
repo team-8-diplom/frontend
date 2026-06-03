@@ -1,7 +1,4 @@
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
-
-import { ProtectedRoute } from './ProtectedRoute';
-import { RoleRoute } from './RoleRoute';
+import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
 
 import { LoginPage } from '@/pages/login-page/ui/LoginPage';
 import { RegisterPage } from '@/pages/register-page/ui/RegisterPage';
@@ -11,33 +8,66 @@ import { ThemesListPage } from '@/pages/themes-page/ui/ThemesListPage';
 import { MyThemesPage } from '@/pages/my-themes-page/ui/MyThemesPage';
 import { FavoritesPage } from '@/pages/favorites-page/ui/FavoritesPage';
 import { ProfilePage } from '@/pages/profile-page/ui/ProfilePage';
-import { ProposeTopicPage } from '@/pages/propose/ui/ProposeTopicPage';
 import { MyApplicationsPage } from '@/pages/my-applications-page/ui/MyApplicationsPage';
+import { ApplicationSuccessPage } from '@/pages/application-success-page/ui/ApplicationSuccessPage';
+
+import { NotFoundPage } from '@/pages/not-found-page/ui/NotFoundPage';
+import { RouteBoundary } from '@/app/providers/router/RouteBoundary.tsx';
+import React from 'react';
+import { ProtectedRoute } from '@/app/providers/router/ProtectedRoute.tsx';
+import { RoleRoute } from '@/app/providers/router/RoleRoute.tsx';
+import { ProposeTopicPage } from '@/pages/propose/ui/ProposeTopicPage.tsx';
+
+const publicRoutes = [
+  { path: '/login', Component: LoginPage },
+  { path: '/register', Component: RegisterPage },
+  { path: '/', Component: ThemesListPage },
+  { path: '/themes/:id', Component: ThemeDetailPage },
+  { path: '*', Component: NotFoundPage },
+];
+
+const studentRoutes = [
+  { path: '/favorites', Component: FavoritesPage },
+  { path: '/my-applications', Component: MyApplicationsPage },
+  { path: '/application-success', Component: ApplicationSuccessPage },
+  { path: '/propose', Component: ProposeTopicPage },
+];
+
+const teacherRoutes = [{ path: '/my-themes', Component: MyThemesPage }];
+
+const protectedRoutes = [{ path: '/profile', Component: ProfilePage }];
+
+const RouteWrapper = ({ Component }: { Component: React.ComponentType }) => (
+  <RouteBoundary>
+    <Component />
+  </RouteBoundary>
+);
 
 export const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Публичные (без авторизации) */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/themes" element={<Navigate to="/" replace />} />
 
-        {/* Темы доступны всем */}
-        <Route path="/" element={<ThemesListPage />} />
-        <Route path="/themes" element={<ThemesListPage />} />
-        <Route path="/themes/:id" element={<ThemeDetailPage />} />
+        {publicRoutes.map(({ path, Component }) => (
+          <Route key={path} path={path} element={<RouteWrapper Component={Component} />} />
+        ))}
 
-        {/* Защищённые маршруты */}
         <Route element={<ProtectedRoute />}>
+          {protectedRoutes.map(({ path, Component }) => (
+            <Route key={path} path={path} element={<RouteWrapper Component={Component} />} />
+          ))}
+
           <Route element={<RoleRoute allowedRoles={['student']} />}>
-            <Route path="/favorites" element={<FavoritesPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
+            {studentRoutes.map(({ path, Component }) => (
+              <Route key={path} path={path} element={<RouteWrapper Component={Component} />} />
+            ))}
           </Route>
 
-          <Route element={<RoleRoute allowedRoles={['teacher', 'student']} />}>
-            <Route path="/my-themes" element={<MyThemesPage />} />
-            <Route path="/propose" element={<ProposeTopicPage />} />
-            <Route path="/my-applications" element={<MyApplicationsPage />} />
+          <Route element={<RoleRoute allowedRoles={['teacher']} />}>
+            {teacherRoutes.map(({ path, Component }) => (
+              <Route key={path} path={path} element={<RouteWrapper Component={Component} />} />
+            ))}
           </Route>
         </Route>
       </Routes>

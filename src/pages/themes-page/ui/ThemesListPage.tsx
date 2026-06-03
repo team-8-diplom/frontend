@@ -57,7 +57,8 @@ export const ThemesListPage = () => {
                 По вашему запросу ничего не найдено
               </div>
             ) : (
-              filteredTopics.map((topic) => <TopicCard key={topic.id} topic={topic} onApply={handleApply} />)            )}
+              filteredTopics.map((topic) => <TopicCard key={topic.id} topic={topic} onApply={handleApply} />)            
+            )}
           </div>
         </div>
       </div>
