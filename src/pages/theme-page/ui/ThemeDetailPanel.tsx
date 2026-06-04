@@ -7,6 +7,8 @@ import { StarIcon } from '@/shared/ui/icons/StarIcon.tsx';
 import { MatchBar } from '@/features/match-skill/ui/MatchBar/MatchBar.tsx';
 import { useNavigate } from 'react-router-dom';
 
+const MAX_MOTIVATION_LETTER_LENGTH = 600;
+
 export const ThemeDetailPanel = ({ topic }: { topic: Topic }) => {
   const navigate = useNavigate();
   const { profile } = useProfile();
@@ -16,7 +18,7 @@ export const ThemeDetailPanel = ({ topic }: { topic: Topic }) => {
 
   const handleFavoriteClick = () => setIsFavorite((prev) => !prev);
   const handleText = (text: string) => {
-    if (text.length <= 600) {
+    if (text.length <= MAX_MOTIVATION_LETTER_LENGTH) {
       setText(text);
     }
   };
@@ -75,7 +77,9 @@ export const ThemeDetailPanel = ({ topic }: { topic: Topic }) => {
             maxRows={6}
             className="flex-grow"
           />
-          <p className="text-xs text-gray-500 mt-1">Количество символов: {text.length}/600</p>
+          <p className="text-xs text-gray-500 mt-1">
+            Количество символов: {text.length}/{MAX_MOTIVATION_LETTER_LENGTH}
+          </p>
         </div>
       </div>
 
