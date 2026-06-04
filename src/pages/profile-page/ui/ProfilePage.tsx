@@ -36,7 +36,6 @@ const MOCK_DEPARTMENTS = [
 ];
 
 export const ProfilePage = () => {
-
   const [isEditing, setIsEditing] = useState(false);
   const [isAddingSkill, setIsAddingSkill] = useState(false);
   const [profileData, setProfileData] = useState({
@@ -74,7 +73,7 @@ export const ProfilePage = () => {
         setUserSkills(MOCK_SKILLS_FALLBACK.slice(0, 3));
       } catch (error) {
         console.error('Ошибка загрузки навыков:', error);
-        
+
         // HACK: Если API не работает, используем моки
         setAllSkills(MOCK_SKILLS_FALLBACK);
         setUserSkills(MOCK_SKILLS_FALLBACK.slice(0, 3));
@@ -104,14 +103,14 @@ export const ProfilePage = () => {
     setIsAddingSkill(false);
   };
 
-const handleRemoveSkill = (skillId: string | undefined) => {
-  if (!skillId) return; 
-  setUserSkills(userSkills.filter((s) => s.id !== skillId));
-  // TODO: вызвать API deleteUsersMeSkills
-};
+  const handleRemoveSkill = (skillId: string | undefined) => {
+    if (!skillId) return;
+    setUserSkills(userSkills.filter((s) => s.id !== skillId));
+    // TODO: вызвать API deleteUsersMeSkills
+  };
 
   const handleSave = () => {
-   // TODO: вызвать API patchUsersMe
+    // TODO: вызвать API patchUsersMe
     setIsEditing(false);
   };
 
